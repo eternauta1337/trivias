@@ -1,0 +1,2 @@
+# trivias
+Solidity trivias
