@@ -14,7 +14,7 @@ This repo contains condensed demos and explanations for the Solidity trivias bei
 
 "How would you call a function on a third party contract B, on behalf of the sender, through your contract A, guaranteeing no reverts?"
 
-* Question thread: [Solidity trivia #1](https://twitter.com/the_ethernaut/status/1442091740886880257?s=20)
+* Question thread: [Solidity trivia #1 discussion](https://twitter.com/the_ethernaut/status/1442091740886880257?s=20)
 * Explanation thread: TBD
 * Demo contracts: `contracts/Trivia1.sol`
 * Demo tests: `npx hardhat test test/Trivia1.test.js`
