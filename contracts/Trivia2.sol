@@ -49,6 +49,10 @@ contract ProxyStorage_t2 {
  * without losing state.
  */
 contract Proxy_t2 is ProxyStorage_t2 {
+    constructor(address firstImplementation) {
+        _proxyStorage().implementation = firstImplementation;
+    }
+
     fallback() external {
         _forwardCallTo(
             _proxyStorage().implementation
@@ -75,14 +79,18 @@ contract Proxy_t2 is ProxyStorage_t2 {
 }
 
 /*
- * This contract exposes an upgradeability management function
- * that allows anyone to upgrade the implementation.
+ * This contract exposes upgradeability management functions
+ * that allows anyone to view or upgrade the implementation.
  * Normally, this would be access controlled by some modifier,
  * but we're keeping it simple here.
  */
 contract UpgradeableProxy_t2 is ProxyStorage_t2 {
     function upgradeTo(address newImplementation) external {
         _proxyStorage().implementation = newImplementation;
+    }
+
+    function getImplementation() public view returns (address) {
+        return _proxyStorage().implementation;
     }
 }
 
@@ -95,7 +103,9 @@ contract UpgradeableProxy_t2 is ProxyStorage_t2 {
  * A transparent proxy can be seen as a proxy that can forward calls
  * to its implementation, and contains upgradeability management functions.
  */
-contract TransparentProxy_t2 is Proxy_y2, UpgradeableProxy_t2 {}
+contract TransparentProxy_t2 is Proxy_t2, UpgradeableProxy_t2 {
+    constructor(address firstImplementation) Proxy_t2(firstImplementation) {}
+}
 
 /*
  * These are the implementation or logic contracts, versions 1 and 2.
@@ -115,7 +125,7 @@ contract ImplementationV2_t2 {
         value = newValue;
     }
 
-    function setAddress(address addr) external {
+    function setAddr(address newAddr) external {
         addr = newAddr;
     }
 }
@@ -127,7 +137,9 @@ contract ImplementationV2_t2 {
 /*
  * Look! A universal proxy is just a proxy with no upgradeability management functions =O!
  */
-contract UniversalProxy_t2 is Proxy_t2 {}
+contract UniversalProxy_t2 is Proxy_t2 {
+    constructor(address firstImplementation) Proxy_t2(firstImplementation) {}
+}
 
 /*
  * BUT its implementations do have the upgradeability management functions,
