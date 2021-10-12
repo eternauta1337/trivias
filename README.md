@@ -18,3 +18,13 @@ This repo contains condensed demos and explanations for the Solidity trivias bei
 * Explanation thread: [Solidity trivia #1 explanation](https://twitter.com/the_ethernaut/status/1447580216017231872?s=20)
 * Demo contracts: `contracts/Trivia1.sol`
 * Demo tests: `npx hardhat test test/Trivia1.test.js`
+
+### Solidity Trivia #2:
+
+"What’s the main difference between a transparent proxy and a universal proxy?"
+
+* Question thread: [Solidity trivia #1 discussion](https://twitter.com/the_ethernaut/status/1442094655324098563)
+* Explanation thread: TBD
+* Demo contracts: TBD
+* Demo tests: TBD
+

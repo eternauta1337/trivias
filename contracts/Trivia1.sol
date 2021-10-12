@@ -1,18 +1,16 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "hardhat/console.sol";
-
-contract Trivia1_A {
+contract ContractA_t1 {
     event SenderRecorded(address sender);
 
-    function method1(Trivia1_B b) external {
+    function method1(ContractB_t1 b) external {
         address sender = b.run();
 
         emit SenderRecorded(sender);
     }
 
-    function method2(Trivia1_B b) external {
+    function method2(ContractB_t1 b) external {
         (bool success, bytes memory response) = address(b).call(abi.encodeWithSignature("run()"));
 
         if (success) {
@@ -22,7 +20,7 @@ contract Trivia1_A {
         }
     }
 
-    function method3(Trivia1_B b) external {
+    function method3(ContractB_t1 b) external {
         (bool success, bytes memory response) = address(b).delegatecall(abi.encodeWithSignature("run()"));
 
         if (success) {
@@ -39,7 +37,7 @@ contract Trivia1_A {
     }
 }
 
-contract Trivia1_B {
+contract ContractB_t1 {
     function run() public view returns (address) {
         if (block.number % 2 == 0) {
             revert("Nope!");

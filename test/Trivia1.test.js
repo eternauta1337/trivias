@@ -2,7 +2,7 @@ const assert = require('assert/strict');
 const { ethers } = require('hardhat');
 
 describe('Trivia1', function () {
-  let A, B;
+  let ContractA, ContractB;
 
   let user;
 
@@ -15,11 +15,11 @@ describe('Trivia1', function () {
   before('deploy the contracts', async () => {
     let factory;
 
-    factory = await ethers.getContractFactory('Trivia1_A');
-    A = await factory.deploy();
+    factory = await ethers.getContractFactory('ContractA_t1');
+    ContractA = await factory.deploy();
 
-    factory = await ethers.getContractFactory('Trivia1_B');
-    B = await factory.deploy();
+    factory = await ethers.getContractFactory('ContractB_t1');
+    ContractB = await factory.deploy();
   });
 
   async function multipleCallsWithMethod(method, times) {
@@ -27,7 +27,7 @@ describe('Trivia1', function () {
       let receipt;
 
       try {
-        const tx = await A[method](B.address);
+        const tx = await ContractA[method](ContractB.address);
         receipt = await tx.wait();
       } catch (error) {
         errors.push(error.toString());
@@ -59,7 +59,7 @@ describe('Trivia1', function () {
 
     it('will have recorded contract A as the sender', async () => {
       assert.equal(records.length, 1);
-      assert.equal(records[0], A.address);
+      assert.equal(records[0], ContractA.address);
     });
   });
 
@@ -74,7 +74,7 @@ describe('Trivia1', function () {
 
     it('will have recorded contract A as the sender', async () => {
       assert.equal(records.length, 1);
-      assert.equal(records[0], A.address);
+      assert.equal(records[0], ContractA.address);
     });
   });
 
