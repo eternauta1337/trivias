@@ -4,6 +4,10 @@ const { ethers } = require('hardhat');
 describe('Trivia2', function () {
   let Proxy, Instance, ImplementationV1, ImplementationV2;
 
+  // ----------------------------------------------------------------
+  // Implementation tests
+  // ----------------------------------------------------------------
+
   function itBehavesLikeImplementationV1() {
     before('set value', async () => {
       const tx = await Instance.setValue('42');
@@ -26,20 +30,28 @@ describe('Trivia2', function () {
     });
   }
 
+  // ----------------------------------------------------------------
+  // Transparent proxies
+  // ----------------------------------------------------------------
+
   describe('when using transparent proxies', () => {
     before('deploy the proxy with the first implementation', async () => {
       let factory;
 
+      // Deploy the first implementation
       factory = await ethers.getContractFactory('ImplementationV1_t2');
       ImplementationV1 = await factory.deploy();
 
+      // Deploy the proxy and set its first implementation
       factory = await ethers.getContractFactory('TransparentProxy_t2');
       Proxy = await factory.deploy(ImplementationV1.address);
 
+      // Disguise the proxy as the implementation
       Instance = await ethers.getContractAt('ImplementationV1_t2', Proxy.address);
     });
 
     it('shows that the implementation is set', async () => {
+      // We ask the proxy about its implementation
       assert.equal(await Proxy.getImplementation(), ImplementationV1.address);
     });
 
@@ -47,12 +59,15 @@ describe('Trivia2', function () {
 
     describe('when upgrading to V2', () => {
       before('upgrade', async () => {
+        // Deploy the second implementation
         const factory = await ethers.getContractFactory('ImplementationV2_t2');
         ImplementationV2 = await factory.deploy();
 
+        // Upgrade the proxy
         const tx = await Proxy.upgradeTo(ImplementationV2.address);
         await tx.wait();
 
+        // Disguise the proxy as the new implementation
         Instance = await ethers.getContractAt('ImplementationV2_t2', Proxy.address);
       });
 
@@ -65,20 +80,28 @@ describe('Trivia2', function () {
     });
   });
 
+  // ----------------------------------------------------------------
+  // Universal proxies
+  // ----------------------------------------------------------------
+
   describe('when using universal proxies', () => {
     before('deploy the proxy with the first implementation', async () => {
       let factory;
 
+      // Deploy the first implementation
       factory = await ethers.getContractFactory('UniversalImplementationV1_t2');
       ImplementationV1 = await factory.deploy();
 
+      // Deploy the proxy and set its first implementation
       factory = await ethers.getContractFactory('UniversalProxy_t2');
       Proxy = await factory.deploy(ImplementationV1.address);
 
+      // Disguise the proxy as the implementation
       Instance = await ethers.getContractAt('UniversalImplementationV1_t2', Proxy.address);
     });
 
     it('shows that the implementation is set', async () => {
+      // We ask the instance about its implementation!
       assert.equal(await Instance.getImplementation(), ImplementationV1.address);
     });
 
@@ -86,12 +109,15 @@ describe('Trivia2', function () {
 
     describe('when upgrading to V2', () => {
       before('upgrade', async () => {
+        // Deploy the second implementation
         const factory = await ethers.getContractFactory('UniversalImplementationV2_t2');
         ImplementationV2 = await factory.deploy();
 
+        // Upgrade the proxy via the implementation!
         const tx = await Instance.upgradeTo(ImplementationV2.address);
         await tx.wait();
 
+        // Disguise the proxy as the new implementation
         Instance = await ethers.getContractAt('UniversalImplementationV2_t2', Proxy.address);
       });
 
