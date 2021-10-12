@@ -23,7 +23,7 @@ This repo contains condensed demos and explanations for the Solidity trivias bei
 
 "What’s the main difference between a transparent proxy and a universal proxy?"
 
-* Question thread: [Solidity trivia #1 discussion](https://twitter.com/the_ethernaut/status/1442094655324098563)
+* Question thread: [Solidity trivia #2 discussion](https://twitter.com/the_ethernaut/status/1442094655324098563)
 * Explanation thread: TBD
 * Demo contracts: `contracts/Trivia2.sol`
 * Demo tests: `npx hardhat test test/Trivia2.test.js`
