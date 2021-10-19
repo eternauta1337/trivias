@@ -46,8 +46,8 @@ The implementation uses delegatecall to guarantee that the next implementation i
 
 "What’s the danger of using tx.origin for user authentication in a smart contract?"
 
-* Question thread: [Solidity trivia #4 discussion]()
-* Explanation thread: [TBD](https://twitter.com/the_ethernaut/status/1442232362503393280?s=20)
+* Question thread: [Solidity trivia #4 discussion](https://twitter.com/the_ethernaut/status/1442232362503393280?s=20)
+* Explanation thread: [TBD]()
 * Demo contracts: `n/a`
 * Demo tests: `n/a`
 
