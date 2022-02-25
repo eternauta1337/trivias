@@ -254,3 +254,13 @@ https://twitter.com/the_ethernaut/status/1468338477175656450
 
 https://twitter.com/the_ethernaut/status/1493575669686673410
 
+### Solidity trivia #35:
+
+"Solidity trivia #35:
+
+You have a contract with 4 public functions. You add a 5th, and all of sudden calling function 4 costs less gas.
+
+feat.  
+@maurelian_"
+
+https://twitter.com/the_ethernaut/status/1494360257904226308
